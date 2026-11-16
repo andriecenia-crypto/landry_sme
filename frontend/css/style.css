@@ -258,3 +258,435 @@ dialog h2 { margin-bottom: 1rem; }
 @media (max-width: 820px) { .auth-wrap { grid-template-columns: 1fr; } .auth-side { display: none; } }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+
+
+
+
+
+/* ========================================================================== */
+/* Responsive layout refinements                                              */
+/* These overrides intentionally preserve the existing HTML and JS behavior. */
+/* ========================================================================== */
+
+html {
+  min-width: 320px;
+  overflow-x: clip;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+main,
+section,
+header,
+footer,
+article,
+aside,
+form,
+.container,
+.card,
+.row,
+.two-col,
+.hero-grid {
+  min-width: 0;
+}
+
+.container {
+  width: min(1180px, calc(100% - clamp(1.25rem, 4vw, 2.5rem)));
+}
+
+.row > * {
+  min-width: 0;
+}
+
+.topbar .container {
+  min-height: 64px;
+  flex-wrap: wrap;
+}
+
+.nav {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.nav > * {
+  min-width: 0;
+}
+
+.nav .bell {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.notif-panel {
+  max-width: calc(100vw - 1.5rem);
+}
+
+.page {
+  padding-top: clamp(1rem, 3vw, 1.75rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.page-head {
+  min-width: 0;
+  gap: 1rem;
+}
+
+.page-head > * {
+  min-width: 0;
+}
+
+.card,
+.stat,
+.order,
+.ticket {
+  min-width: 0;
+}
+
+.card {
+  padding: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+.field-row {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.stat-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+}
+
+.service-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13.75rem), 1fr));
+}
+
+.admin-tabs {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.admin-tabs button {
+  flex: 0 0 auto;
+}
+
+.filters {
+  min-width: 0;
+}
+
+.filters input,
+.filters select {
+  max-width: 100%;
+}
+
+.table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.table-wrap table {
+  width: 100%;
+  max-width: none;
+}
+
+/* Keep data tables readable on narrow screens; only the table area scrolls. */
+#tab-orders .table-wrap table {
+  min-width: 900px;
+}
+
+#tab-services .table-wrap table {
+  min-width: 620px;
+}
+
+#tab-inventory .table-wrap table {
+  min-width: 760px;
+}
+
+#tab-people .table-wrap table {
+  min-width: 740px;
+}
+
+#tab-branches .table-wrap table {
+  min-width: 680px;
+}
+
+.actions {
+  flex-wrap: wrap;
+}
+
+.item-row {
+  grid-template-columns: minmax(0, 1fr) minmax(110px, 0.8fr) minmax(5.5rem, auto) 40px;
+}
+
+.item-row > * {
+  min-width: 0;
+}
+
+.calc {
+  flex-wrap: wrap;
+}
+
+.dialog-actions {
+  flex-wrap: wrap;
+}
+
+dialog {
+  width: min(640px, calc(100vw - 1rem));
+  max-height: min(92vh, 900px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+dialog form {
+  min-width: 0;
+}
+
+.auth-wrap {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.auth-main {
+  min-width: 0;
+}
+
+.auth-card {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .topbar .container {
+    align-items: center;
+    gap: 0.55rem 1rem;
+    padding-block: 0.65rem;
+  }
+
+  .nav {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .two-col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .hero {
+    padding-block: 2.5rem;
+  }
+
+  .section {
+    padding-block: 2.5rem;
+  }
+
+  .page-head.row.between {
+    align-items: flex-start;
+  }
+
+  .auth-wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: calc(100% - 1.25rem);
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 8vw, 2.45rem);
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav {
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .nav a:not(.btn) {
+    padding: 0.45rem 0.6rem;
+  }
+
+  .nav #userName {
+    display: none;
+  }
+
+  .nav .avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .nav .btn.sm {
+    min-height: 38px;
+    padding-inline: 0.7rem;
+  }
+
+  .notif-panel {
+    left: 0;
+    right: auto;
+    width: min(360px, calc(100vw - 1.5rem));
+  }
+
+  .page {
+    padding-top: 1rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .page-head.row.between {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-head.row.between > .btn {
+    align-self: flex-start;
+  }
+
+  .card-head {
+    align-items: flex-start;
+  }
+
+  .card-head .tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .card-head .tabs .tab {
+    width: 100%;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .item-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  .item-row .svc {
+    grid-column: 1 / -1;
+  }
+
+  .item-row .qty-wrap {
+    min-width: 0;
+  }
+
+  .item-row .line-total {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .item-row .remove {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .calc {
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .calc .amount {
+    font-size: 1.55rem;
+    overflow-wrap: anywhere;
+  }
+
+  .tracker li {
+    padding-inline: 1px;
+    font-size: 0.64rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .ticket {
+    padding: 1.1rem;
+  }
+
+  .order-top {
+    gap: 0.5rem;
+  }
+
+  .order-lines li {
+    align-items: flex-start;
+  }
+
+  .dialog-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .dialog-actions .btn {
+    width: 100%;
+  }
+
+  dialog form {
+    padding: 1rem;
+  }
+
+  .auth-main {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .auth-side {
+    display: none;
+  }
+
+  .auth-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .tracker li {
+    font-size: 0.59rem;
+  }
+
+  .btn {
+    padding-inline: 0.8rem;
+  }
+
+  .nav .btn.sm {
+    padding-inline: 0.55rem;
+    font-size: 0.78rem;
+  }
+}

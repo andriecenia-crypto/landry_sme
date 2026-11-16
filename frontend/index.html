@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2713%27 cy=%2719%27 r=%2711%27 fill=%27%230b4f5c%27/%3E%3Ccircle cx=%2725%27 cy=%279%27 r=%276%27 fill=%27%237dd6d1%27/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/style.css">
+<title>Sudsy: laundry and dry cleaning, tracked from drop-off to pickup</title>
+<meta name="description" content="Sudsy helps laundry shops take orders, track every load, and tell customers the moment their clothes are ready.">
+</head>
+<body>
+<header class="topbar">
+  <div class="container">
+    <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="13" cy="19" r="11" fill="#0b4f5c"/><circle cx="25" cy="9" r="6" fill="#7dd6d1"/><circle cx="9" cy="15" r="3" fill="#f4d03f"/></svg> Sudsy</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a id="navLogin" href="/login.html">Sign in</a>
+      <a id="navCta" class="btn lemon sm" href="/register.html">Create account</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Know exactly where every load is.</h1>
+        <p class="lead">Drop off your laundry, then watch it move from washing to drying to ready for pickup. Shop owners get one calm dashboard for orders, prices, and supplies.</p>
+        <div class="row">
+          <a class="btn lemon" href="/register.html">Book a drop-off</a>
+          <a class="btn ghost" href="/login.html">I have an account</a>
+        </div>
+      </div>
+      <div class="ticket" aria-label="Example order tracker">
+        <div class="ticket-head">
+          <div><div class="small muted">Order</div><div class="order-id">#A41C9F02</div></div>
+          <span class="badge">Drying</span>
+        </div>
+        <ol class="tracker" aria-label="Example progress: drying">
+          <li class="done">Received</li><li class="done">Washing</li><li class="current" aria-current="step">Drying</li><li>Ready for pickup</li><li>Completed</li>
+        </ol>
+        <img class="ticket-photo" alt="Folded fresh towels stacked on a shelf" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=900&q=70" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <h2>Simple prices, priced by the kilo or by the piece</h2>
+      <p class="muted">Everything on the menu, with the rate you will actually pay.</p>
+      <div class="service-grid" id="landingServices" aria-live="polite"><p class="muted">Loading the price list&hellip;</p></div>
+    </div>
+  </section>
+
+  <section class="section alt" id="how">
+    <div class="container">
+      <h2>From hamper to hanger in three steps</h2>
+      <div class="steps">
+        <div class="step"><h3>Book and weigh</h3><p>Pick your services and see your total as you type the weight or item count.</p></div>
+        <div class="step"><h3>Follow your load</h3><p>The tracker updates live as the shop moves your order along. No calling to ask.</p></div>
+        <div class="step"><h3>Pick up when ready</h3><p>You get a notification the moment your clothes are ready at the counter.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><div class="container">Sudsy: laundry and dry cleaning management for small shops.</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

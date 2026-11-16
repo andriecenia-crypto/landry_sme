@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2713%27 cy=%2719%27 r=%2711%27 fill=%27%230b4f5c%27/%3E%3Ccircle cx=%2725%27 cy=%279%27 r=%276%27 fill=%27%237dd6d1%27/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/style.css">
+<title>Shop dashboard | Sudsy</title>
+</head>
+<body>
+<header class="topbar">
+  <div class="container">
+    <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="13" cy="19" r="11" fill="#0b4f5c"/><circle cx="25" cy="9" r="6" fill="#7dd6d1"/><circle cx="9" cy="15" r="3" fill="#f4d03f"/></svg> Sudsy</a>
+    <nav class="nav" aria-label="Account">
+      <div class="bell"><button class="icon-btn" id="notifBell" aria-label="Notifications" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="bell-count" id="notifCount" hidden>0</span></button><div class="notif-panel" id="notifPanel" hidden><div class="notif-head"><span>Notifications</span><button class="btn ghost sm" id="markAllRead" type="button">Mark all read</button></div><div id="notifList"></div></div></div>
+      <img class="avatar" id="userAvatar" alt="" width="40" height="40">
+      <span id="userName" class="small" style="max-width:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Sign out</button>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="page-head row between">
+      <div><h1>Shop dashboard</h1><p class="muted" id="roleLine"></p></div>
+      <button class="btn lemon" id="newOrderBtn" type="button">New order</button>
+    </div>
+
+    <div class="admin-tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button role="tab" data-tab="orders" aria-selected="false">Orders</button>
+      <button role="tab" data-tab="services" aria-selected="false">Services and prices</button>
+      <button role="tab" data-tab="inventory" aria-selected="false">Inventory</button>
+      <button role="tab" data-tab="people" aria-selected="false">People</button>
+      <button role="tab" data-tab="branches" aria-selected="false">Branches</button>
+    </div>
+
+    <section id="tab-overview" role="tabpanel">
+      <div id="lowStockAlert"></div>
+      <div class="stat-grid" id="stats"></div>
+      <div class="card">
+        <div class="card-head"><h2>Latest orders</h2><button class="btn ghost sm" type="button" data-goto="orders">See all orders</button></div>
+        <div id="recentOrders"></div>
+      </div>
+    </section>
+
+    <section id="tab-orders" role="tabpanel" hidden>
+      <div class="filters">
+        <input id="orderSearch" type="search" placeholder="Search by customer or order number" aria-label="Search orders">
+        <select id="orderStatusFilter" aria-label="Filter by status"><option value="">All statuses</option></select>
+        <select id="orderPaymentFilter" aria-label="Filter by payment"><option value="">Paid and unpaid</option><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Order</th><th>Customer</th><th>Branch</th><th>Items</th><th>Total</th><th>Status</th><th>Payment</th><th>Pickup</th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody id="ordersBody"></tbody>
+      </table></div>
+    </section>
+
+    <section id="tab-services" role="tabpanel" hidden>
+      <div class="row between" style="margin-bottom:1rem"><p class="muted" style="margin:0">Change a price and select Save. New orders use the new price right away.</p><button class="btn" id="addServiceBtn" type="button">Add service</button></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Service</th><th>Priced</th><th>Price</th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody id="servicesBody"></tbody>
+      </table></div>
+    </section>
+
+    <section id="tab-inventory" role="tabpanel" hidden>
+      <div id="inventoryAlert"></div>
+      <div class="row between" style="margin-bottom:1rem">
+        <div class="filters" style="margin:0"><select id="inventoryBranchFilter" aria-label="Filter by branch"><option value="">All branches</option></select></div>
+        <button class="btn" id="addInventoryBtn" type="button">Add supply</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Item</th><th>Branch</th><th>In stock</th><th>Reorder at</th><th>Adjust</th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody id="inventoryBody"></tbody>
+      </table></div>
+    </section>
+
+    <section id="tab-people" role="tabpanel" hidden>
+      <p class="muted" id="peopleHint"></p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Joined</th></tr></thead>
+        <tbody id="peopleBody"></tbody>
+      </table></div>
+    </section>
+
+    <section id="tab-branches" role="tabpanel" hidden>
+      <div class="row between" style="margin-bottom:1rem"><p class="muted" style="margin:0" id="branchHint"></p><button class="btn" id="addBranchBtn" type="button">Add branch</button></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Branch</th><th>Address</th><th>Contact</th><th><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody id="branchesBody"></tbody>
+      </table></div>
+    </section>
+  </div>
+</main>
+
+<!-- order dialog (create and edit) -->
+<dialog id="orderDialog">
+  <form id="orderForm" novalidate>
+    <h2 id="orderDialogTitle">New order</h2>
+    <div id="orderFormError" role="alert" hidden></div>
+    <div id="customerFields">
+      <div class="field-row">
+        <div class="field"><label for="oEmail">Customer email</label><input id="oEmail" type="email" list="customerList" autocomplete="off"><datalist id="customerList"></datalist></div>
+        <div class="field"><label for="oName">Customer name</label><input id="oName"><p class="hint">Only needed for new customers.</p></div>
+      </div>
+      <div class="field"><label for="oPhone">Customer phone</label><input id="oPhone" type="tel"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label for="oBranch">Branch</label><select id="oBranch"></select></div>
+      <div class="field"><label for="oPickup">Pickup date</label><input id="oPickup" type="date"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label for="oStatus">Status</label><select id="oStatus"></select></div>
+      <div class="field"><label for="oPayment">Payment</label><select id="oPayment"><option value="unpaid">Unpaid</option><option value="paid">Paid</option></select></div>
+    </div>
+    <label>Items</label>
+    <div id="oItems"></div>
+    <button class="btn ghost sm" type="button" id="oAddItem" style="margin-top:0.7rem">Add another item</button>
+    <div class="calc"><div class="label">Order total</div><div class="amount" id="oTotal">&#8369;0.00</div></div>
+    <div class="dialog-actions">
+      <button class="btn ghost" type="button" data-close>Cancel</button>
+      <button class="btn" type="submit" id="orderSave">Save order</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="serviceDialog">
+  <form id="serviceForm" novalidate>
+    <h2 id="serviceDialogTitle">Add service</h2>
+    <div id="serviceFormError" role="alert" hidden></div>
+    <div class="field"><label for="sName">Name</label><input id="sName" required></div>
+    <div class="field"><label for="sDesc">Description</label><textarea id="sDesc" rows="2"></textarea></div>
+    <div class="field-row">
+      <div class="field"><label for="sType">Priced</label><select id="sType"><option value="per_kg">Per kg</option><option value="per_piece">Per piece</option></select></div>
+      <div class="field"><label for="sPrice">Price (PHP)</label><input id="sPrice" type="number" min="0" step="0.01" required></div>
+    </div>
+    <div class="field"><label for="sImage">Image link</label><input id="sImage" type="url" placeholder="https://images.unsplash.com/..."></div>
+    <div class="dialog-actions"><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn" type="submit">Save service</button></div>
+  </form>
+</dialog>
+
+<dialog id="inventoryDialog">
+  <form id="inventoryForm" novalidate>
+    <h2 id="inventoryDialogTitle">Add supply</h2>
+    <div id="inventoryFormError" role="alert" hidden></div>
+    <div class="field"><label for="iName">Item name</label><input id="iName" required></div>
+    <div class="field"><label for="iBranch">Branch</label><select id="iBranch"></select></div>
+    <div class="field-row">
+      <div class="field"><label for="iStock">In stock</label><input id="iStock" type="number" min="0" step="0.1" required></div>
+      <div class="field"><label for="iUnit">Unit</label><input id="iUnit" placeholder="liters, pcs, bottles" required></div>
+      <div class="field"><label for="iReorder">Reorder at</label><input id="iReorder" type="number" min="0" step="0.1" required></div>
+    </div>
+    <div class="dialog-actions"><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn" type="submit">Save supply</button></div>
+  </form>
+</dialog>
+
+<dialog id="branchDialog">
+  <form id="branchForm" novalidate>
+    <h2 id="branchDialogTitle">Add branch</h2>
+    <div id="branchFormError" role="alert" hidden></div>
+    <div class="field"><label for="bName">Branch name</label><input id="bName" required></div>
+    <div class="field"><label for="bAddress">Address</label><input id="bAddress"></div>
+    <div class="field"><label for="bContact">Contact number</label><input id="bContact" type="tel"></div>
+    <div class="dialog-actions"><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn" type="submit">Save branch</button></div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>
